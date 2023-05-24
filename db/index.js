@@ -1,7 +1,9 @@
 // inside db/index.js
 const { Client } = require('pg');
 
-const client = new Client('postgres://postgres:123@localhost:5432/juicebox_dev');
+const clientURL = 'postgres://postgres:123@localhost:5432/juicebox_dev'
+
+const client = new Client(clientURL);
 
 
 async function createUser({
@@ -110,7 +112,6 @@ async function updatePost(postId, fields = {}) {
     try {
         // update any fields that need to be updated
 
-        // deleted line 'WHERE id = $id' after setstring due to an error I could not solve
         if (setString.length > 0) {
             await client.query(`
             UPDATE posts

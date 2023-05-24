@@ -92,6 +92,21 @@ postsRouter.delete('/:postId', requireUser, async (req, res, next) => {
     }
 });
 
+postsRouter.get('/', async (req, res, next) => {
+    try {
+      const allPosts = await getAllPosts();
+  
+      const posts = allPosts.filter(post => {
+        // keep a post if it is either active, or if it belongs to the current user
+      });
+  
+      res.send({
+        posts
+      });
+    } catch ({ name, message }) {
+      next({ name, message });
+    }
+  });
 
 postsRouter.use((req, res, next) => {
     console.log("A request is being made to /posts");
